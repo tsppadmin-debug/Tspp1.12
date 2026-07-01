@@ -303,7 +303,7 @@
       class="site-nav bg-surface/90 backdrop-blur-sm border-b border-outline-variant/30 top-0 z-50 fixed w-full"
     >
       <div
-        class="flex justify-between items-center w-full px-margin-desktop py-base max-w-container-max mx-auto h-20"
+        class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-base max-w-container-max mx-auto h-20"
       >
         <a
           class="site-brand font-headline-md text-[20px] font-bold text-primary"
@@ -370,7 +370,7 @@
 <!-- Bento Architectural Grid -->
 <section class="px-lg md:px-2xl grid grid-cols-1 md:grid-cols-12 gap-base auto-rows-[280px]">
 <div class="md:col-span-8 md:row-span-2 relative overflow-hidden group kinetic-scroll-item rounded-lg gallery-card cursor-pointer transition-all duration-300 hover:shadow-lg dark:hover:shadow-lg dark:hover:shadow-secondary/20" data-gallery-id="hero1">
-<img src="https://res.cloudinary.com/dfefliptm/image/upload/v1782616955/yoga_gcs7id.jpg" alt="The Social community gathering" class="w-full h-full object-cover gallery-image" loading="lazy" />
+<img src="https://res.cloudinary.com/dfefliptm/image/upload/v1782616954/Jiangnightgroup1_szzqnj.jpg" alt="The Social community gathering" class="w-full h-full object-cover gallery-image" loading="lazy" />
 <div class="absolute inset-0 noir-gradient flex flex-col justify-end p-lg">
 <span class="font-label-sm text-label-sm bg-secondary text-white px-base py-xs mb-sm inline-block w-fit">FEATURED</span>
 <h3 class="text-white font-headline-md text-headline-md leading-tight">Front Row Energy</h3>
@@ -398,8 +398,8 @@
 <div class="md:col-span-4 md:row-span-1 relative overflow-hidden group kinetic-scroll-item rounded-lg gallery-card cursor-pointer transition-all duration-300 hover:shadow-lg dark:hover:shadow-secondary/20" data-gallery-id="text1">
 <img src="https://res.cloudinary.com/dfefliptm/image/upload/v1782616952/kirirom1_wmdpbl.jpg" alt="Candid side shot at The Social" class="w-full h-full object-cover gallery-image" loading="lazy" />
 <div class="absolute inset-0 bg-gradient-to-r from-black/75 to-black/10 p-lg flex flex-col justify-center">
-<p class="font-label-sm text-label-sm text-white/70 mb-xs uppercase tracking-widest">Candid</p>
-<p class="font-body-md text-body-md text-white font-bold leading-tight">Small moments between the main event.</p>
+<p class="font-label-sm text-label-sm text-white/70 mb-xs uppercase tracking-widest"></p>
+<p class="font-body-md text-body-md text-white font-bold leading-tight"></p>
 </div>
 </div>
 
@@ -445,7 +445,7 @@
 </div>
 
 <div class="md:col-span-3 md:row-span-2 relative overflow-hidden group kinetic-scroll-item rounded-lg gallery-card cursor-pointer transition-all duration-300 hover:shadow-lg dark:hover:shadow-lg dark:hover:shadow-secondary/20" data-gallery-id="card9">
-<img src="static/kirirom1.jpg" alt="Kirirom hike with The Social" class="w-full h-full object-cover gallery-image" loading="lazy" />
+<img src="https://res.cloudinary.com/dfefliptm/image/upload/v1782890391/DSC04936_olarkq.jpg" alt="Trail Run at Koh Dach" class="w-full h-full object-cover gallery-image" loading="lazy" />
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
 <div class="absolute bottom-md left-md right-md">
 <span class="font-label-sm text-label-sm text-white/70 uppercase">Outdoor</span>
@@ -467,9 +467,6 @@
 
 <div>
 
-</div>
-</div>
-</div>
 </div>
 <!-- Interaction Trigger: Load More -->
 
@@ -590,6 +587,7 @@
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         const hamburgerIcon = document.querySelector('.hamburger-icon');
         let isOpen = false;
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
 
         function openMenu() {
           isOpen = true;
@@ -603,7 +601,10 @@
           mobileMenuOverlay.style.pointerEvents = 'auto';
           
           // Animate hamburger icon
-          hamburgerIcon.style.transform = 'rotate(90deg) scale(0)';
+          hamburgerIcon.textContent = 'close';
+          hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Close navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'true');
           
           // Stagger animation for nav links
           mobileNavLinks.forEach((link) => {
@@ -624,7 +625,10 @@
           mobileMenuOverlay.style.pointerEvents = 'none';
           
           // Reset hamburger icon
+          hamburgerIcon.textContent = 'menu';
           hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
           
           // Reset nav links
           mobileNavLinks.forEach((link) => {
@@ -755,6 +759,7 @@
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         const hamburgerIcon = document.querySelector('.hamburger-icon');
         let isOpen = false;
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
 
         function openMenu() {
           isOpen = true;
@@ -763,7 +768,10 @@
           mobileMenuPanel.style.transform = 'translateX(0)';
           mobileMenuOverlay.style.opacity = '1';
           mobileMenuOverlay.style.pointerEvents = 'auto';
-          hamburgerIcon.style.transform = 'rotate(90deg) scale(0)';
+          hamburgerIcon.textContent = 'close';
+          hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Close navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'true');
           mobileNavLinks.forEach((link) => {
             const index = parseInt(link.getAttribute('data-index'));
             setTimeout(() => {
@@ -779,7 +787,10 @@
           mobileMenuPanel.style.transform = 'translateX(100%)';
           mobileMenuOverlay.style.opacity = '0';
           mobileMenuOverlay.style.pointerEvents = 'none';
+          hamburgerIcon.textContent = 'menu';
           hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
           mobileNavLinks.forEach((link) => {
             link.style.opacity = '0';
             link.style.transform = 'translateX(100px)';
@@ -816,7 +827,7 @@
         
         const galleryData = {
           hero1: {
-            title: 'Front Row Energy',
+            title: 'F',
             image: 'static/frontshot.jpg',
             metadata: 'Community highlight',
             location: 'The Social Phnom Penh',
