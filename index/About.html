@@ -207,10 +207,10 @@
               >Gallery</a
             >
             <a
-              href="comingsoon.html"
+              href="Members.html"
               class="mobile-nav-link block py-5 px-6 font-headline-md text-headline-md text-primary hover:bg-primary/5 transition-all duration-300 transform translate-x-full opacity-0"
               data-index="5"
-              >Coming Soon</a
+              >Members</a
             >
           </div>
           <div class="border-t border-primary/10 pt-8 pb-8 opacity-0 transform translate-x-full transition-all duration-700" style="transition-delay: 400ms">
@@ -233,7 +233,7 @@
       class="site-nav bg-surface/90 backdrop-blur-sm border-b border-outline-variant/30 top-0 z-50 fixed w-full"
     >
       <div
-        class="flex justify-between items-center w-full px-margin-desktop py-base max-w-container-max mx-auto h-20"
+        class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-base max-w-container-max mx-auto h-20"
       >
         <a
           class="site-brand font-headline-md text-[20px] font-bold text-primary"
@@ -453,10 +453,7 @@
       </div>
     </footer>
 <script>
-
-          });
-      })();
-
+     
       // Add 'in-view' / animate classes as sections enter the viewport
       (function () {
         const observer = new IntersectionObserver(
@@ -499,10 +496,6 @@
           .querySelectorAll("section")
           .forEach((s) => observer.observe(s));
       })();
-    </script>
-  </body>
-</html>
-
         // --- Cinematic Entrance Sequence ---
     window.addEventListener('DOMContentLoaded', () => {
         const title = document.getElementById('hero-title');
@@ -621,7 +614,7 @@
             // Header opacity scroll
             const hero = document.querySelector('header');
             const opacity = 1 - (scroll / 700);
-            if(opacity >= 0) {
+            if(hero && opacity >= 0) {
                 hero.style.opacity = opacity;
             }
 
@@ -643,7 +636,152 @@
 
         // Kinetic background pattern generation (SVG-free)
         const bg = document.getElementById('kinetic-bg');
-        bg.style.backgroundImage = 'radial-gradient(circle at 2px 2px, #00A3FF 1px, transparent 0)';
-        bg.style.backgroundSize = '40px 40px';
+        if (bg) {
+          bg.style.backgroundImage = 'radial-gradient(circle at 2px 2px, #00A3FF 1px, transparent 0)';
+          bg.style.backgroundSize = '40px 40px';
+        }
+
+      // Mobile Menu Toggle
+        (function () {
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        let isOpen = false;
+
+        if (!mobileMenuBtn || !mobileMenuOverlay || !mobileMenuPanel || !hamburgerIcon) {
+          return;
+        }
+
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+
+        function openMenu() {
+          isOpen = true;
+          mobileMenuOverlay.classList.remove('hidden');
+          
+          // Trigger reflow to enable transition
+          void mobileMenuPanel.offsetWidth;
+          
+          mobileMenuPanel.style.transform = 'translateX(0)';
+          mobileMenuOverlay.style.opacity = '1';
+          mobileMenuOverlay.style.pointerEvents = 'auto';
+          
+          // Animate hamburger icon
+          hamburgerIcon.textContent = 'close';
+          hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Close navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'true');
+          
+          // Stagger animation for nav links
+          mobileNavLinks.forEach((link) => {
+            const index = parseInt(link.getAttribute('data-index'));
+            setTimeout(() => {
+              link.style.opacity = '1';
+              link.style.transform = 'translateX(0)';
+            }, 80 + index * 60);
+          });
+          
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+          isOpen = false;
+          mobileMenuPanel.style.transform = 'translateX(100%)';
+          mobileMenuOverlay.style.opacity = '0';
+          mobileMenuOverlay.style.pointerEvents = 'none';
+          
+          // Reset hamburger icon
+          hamburgerIcon.textContent = 'menu';
+          hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+          
+          // Reset nav links
+          mobileNavLinks.forEach((link) => {
+            link.style.opacity = '0';
+            link.style.transform = 'translateX(100px)';
+          });
+          
+          setTimeout(() => {
+            if (!isOpen) {
+              mobileMenuOverlay.classList.add('hidden');
+            }
+          }, 500);
+          
+          document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', () => {
+          if (isOpen) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        });
+
+        // Close menu when clicking on overlay or links
+        mobileMenuOverlay.addEventListener('click', (e) => {
+          if (e.target === mobileMenuOverlay) {
+            closeMenu();
+          }
+        });
+
+        mobileNavLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            closeMenu();
+          });
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && isOpen) {
+            closeMenu();
+          }
+        });
+      })();
+
+      // Add 'in-view' / animate classes as sections enter the viewport
+      (function () {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const el = entry.target;
+              if (entry.isIntersecting) {
+                el.classList.add("in-view");
+                const content = el.querySelectorAll(".section-content");
+                content.forEach((c, i) => {
+                  setTimeout(
+                    () => c.classList.add("in-view", "animate-float"),
+                    i * 80,
+                  );
+                });
+                const heavy = el.querySelectorAll(".heavy-zoom");
+                heavy.forEach((h) => h.classList.add("in-view"));
+                const slow = el.querySelectorAll(".parallax-layer.slow");
+                slow.forEach(
+                  (p, i) => (p.style.transform = `translateY(${-12}px)`),
+                );
+              } else {
+                el.classList.remove("in-view");
+                el.querySelectorAll(".section-content").forEach((c) =>
+                  c.classList.remove("in-view", "animate-float"),
+                );
+                el.querySelectorAll(".heavy-zoom").forEach((h) =>
+                  h.classList.remove("in-view"),
+                );
+                el.querySelectorAll(".parallax-layer.slow").forEach(
+                  (p) => (p.style.transform = "translateY(0)"),
+                );
+              }
+            });
+          },
+          { threshold: 0.18 },
+        );
+
+        document
+          .querySelectorAll("section")
+          .forEach((s) => observer.observe(s));
+      })();
     </script>
 </body></html>
