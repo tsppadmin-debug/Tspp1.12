@@ -225,7 +225,7 @@
       class="site-nav bg-surface/90 backdrop-blur-sm border-b border-outline-variant/30 top-0 z-50 fixed w-full"
     >
       <div
-        class="flex justify-between items-center w-full px-margin-desktop py-base max-w-container-max mx-auto h-20"
+        class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-base max-w-container-max mx-auto h-20"
       >
         <a
           class="site-brand font-headline-md text-[20px] font-bold text-primary"
@@ -412,6 +412,7 @@
     </div>
   </div>
 </div>
+</main>
 <!-- Footer -->
     <footer class="bg-surface border-t border-outline-variant/30 py-32">
       <div
@@ -568,6 +569,7 @@
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         const hamburgerIcon = document.querySelector('.hamburger-icon');
         let isOpen = false;
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
 
         function openMenu() {
           isOpen = true;
@@ -576,7 +578,10 @@
           mobileMenuPanel.style.transform = 'translateX(0)';
           mobileMenuOverlay.style.opacity = '1';
           mobileMenuOverlay.style.pointerEvents = 'auto';
-          hamburgerIcon.style.transform = 'rotate(90deg) scale(0)';
+          hamburgerIcon.textContent = 'close';
+          hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Close navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'true');
           mobileNavLinks.forEach((link) => {
             const index = parseInt(link.getAttribute('data-index'));
             setTimeout(() => {
@@ -592,7 +597,10 @@
           mobileMenuPanel.style.transform = 'translateX(100%)';
           mobileMenuOverlay.style.opacity = '0';
           mobileMenuOverlay.style.pointerEvents = 'none';
+          hamburgerIcon.textContent = 'menu';
           hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
           mobileNavLinks.forEach((link) => {
             link.style.opacity = '0';
             link.style.transform = 'translateX(100px)';
