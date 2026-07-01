@@ -453,6 +453,56 @@
       </div>
     </footer>
 <script>
+
+          });
+      })();
+
+      // Add 'in-view' / animate classes as sections enter the viewport
+      (function () {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const el = entry.target;
+              if (entry.isIntersecting) {
+                el.classList.add("in-view");
+                const content = el.querySelectorAll(".section-content");
+                content.forEach((c, i) => {
+                  setTimeout(
+                    () => c.classList.add("in-view", "animate-float"),
+                    i * 80,
+                  );
+                });
+                const heavy = el.querySelectorAll(".heavy-zoom");
+                heavy.forEach((h) => h.classList.add("in-view"));
+                const slow = el.querySelectorAll(".parallax-layer.slow");
+                slow.forEach(
+                  (p, i) => (p.style.transform = `translateY(${-12}px)`),
+                );
+              } else {
+                el.classList.remove("in-view");
+                el.querySelectorAll(".section-content").forEach((c) =>
+                  c.classList.remove("in-view", "animate-float"),
+                );
+                el.querySelectorAll(".heavy-zoom").forEach((h) =>
+                  h.classList.remove("in-view"),
+                );
+                el.querySelectorAll(".parallax-layer.slow").forEach(
+                  (p) => (p.style.transform = "translateY(0)"),
+                );
+              }
+            });
+          },
+          { threshold: 0.18 },
+        );
+
+        document
+          .querySelectorAll("section")
+          .forEach((s) => observer.observe(s));
+      })();
+    </script>
+  </body>
+</html>
+
         // --- Cinematic Entrance Sequence ---
     window.addEventListener('DOMContentLoaded', () => {
         const title = document.getElementById('hero-title');
