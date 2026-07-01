@@ -208,10 +208,10 @@
               >Gallery</a
             >
             <a
-              href="Members.html"
+              href="comingsoon.html"
               class="mobile-nav-link block py-5 px-6 font-headline-md text-headline-md text-primary hover:bg-primary/5 transition-all duration-300 transform translate-x-full opacity-0"
               data-index="5"
-              >Members</a
+              >Coming Soon</a
             >
           </div>
           <div class="border-t border-primary/10 pt-8 pb-8 opacity-0 transform translate-x-full transition-all duration-700" style="transition-delay: 400ms">
@@ -234,7 +234,7 @@
       class="site-nav bg-surface/90 backdrop-blur-sm border-b border-outline-variant/30 top-0 z-50 fixed w-full"
     >
       <div
-        class="flex justify-between items-center w-full px-margin-desktop py-base max-w-container-max mx-auto h-20"
+        class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-base max-w-container-max mx-auto h-20"
       >
         <a
           class="site-brand font-headline-md text-[20px] font-bold text-primary"
@@ -317,7 +317,8 @@
 <!-- Event 2: Tall Side -->
 <div class="md:col-span-4 group event-card-hover cursor-pointer flex flex-col">
 <div class="relative flex-grow aspect-[4/5] overflow-hidden bg-surface-container-low mb-8 rounded-xl">
-<img alt="Mixology Event" class="event-image w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0" src="https://res.cloudinary.com/dfefliptm/image/upload/v1782828389/IMG_2474_reule7.jpg
+<img alt="Mixology Event" class="event-image w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0" src="https://res.cloudinary.com/dfefliptm/image/upload/v1782828389/IMG_2474_reule7.jpg">
+</div>
 <div class="px-2">
 <p class="text-[10px] font-bold text-on-surface-variant mb-2 tracking-[0.2em] uppercase">June / Srey Mom Farm</p>
 <h3 class="text-2xl font-bold uppercase tracking-tighter mb-2">Srey Mom Fruit. Farm</h3>
@@ -376,7 +377,6 @@ rel="noopener noreferrer"
 </div>
 </div>
 </section>
-</main>
 <!-- Footer -->
     <footer class="bg-surface border-t border-outline-variant/30 py-32">
       <div
@@ -488,6 +488,7 @@ rel="noopener noreferrer"
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         const hamburgerIcon = document.querySelector('.hamburger-icon');
         let isOpen = false;
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
 
         function openMenu() {
           isOpen = true;
@@ -501,7 +502,10 @@ rel="noopener noreferrer"
           mobileMenuOverlay.style.pointerEvents = 'auto';
           
           // Animate hamburger icon
-          hamburgerIcon.style.transform = 'rotate(90deg) scale(0)';
+          hamburgerIcon.textContent = 'close';
+          hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Close navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'true');
           
           // Stagger animation for nav links
           mobileNavLinks.forEach((link) => {
@@ -522,7 +526,10 @@ rel="noopener noreferrer"
           mobileMenuOverlay.style.pointerEvents = 'none';
           
           // Reset hamburger icon
+          hamburgerIcon.textContent = 'menu';
           hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
           
           // Reset nav links
           mobileNavLinks.forEach((link) => {
