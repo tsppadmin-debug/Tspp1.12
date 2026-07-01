@@ -299,7 +299,7 @@
       class="site-nav bg-surface/90 backdrop-blur-sm border-b border-outline-variant/30 top-0 z-50 fixed w-full"
     >
       <div
-        class="flex justify-between items-center w-full px-margin-desktop py-base max-w-container-max mx-auto h-20"
+        class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-base max-w-container-max mx-auto h-20"
       >
         <a
           class="site-brand font-headline-md text-[20px] font-bold text-primary"
@@ -520,7 +520,8 @@
       const mobileMenuPanel = document.getElementById('mobile-menu-panel');
       const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
       const hamburgerIcon = document.querySelector('.hamburger-icon');
-      let isOpen = false;
+        let isOpen = false;
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
 
       function openMenu() {
         isOpen = true;
@@ -534,7 +535,10 @@
         mobileMenuOverlay.style.pointerEvents = 'auto';
         
         // Animate hamburger icon
-        hamburgerIcon.style.transform = 'rotate(90deg) scale(0)';
+        hamburgerIcon.textContent = 'close';
+          hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Close navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'true');
         
         // Stagger animation for nav links
         mobileNavLinks.forEach((link) => {
@@ -555,7 +559,10 @@
         mobileMenuOverlay.style.pointerEvents = 'none';
         
         // Reset hamburger icon
-        hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+        hamburgerIcon.textContent = 'menu';
+          hamburgerIcon.style.transform = 'rotate(0deg) scale(1)';
+          mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
         
         // Reset nav links
         mobileNavLinks.forEach((link) => {
